@@ -12,7 +12,7 @@ module App
     def initialize_copy(source)
       super
 
-      @discounter = nil
+      @discounter = Discounter.new(promos:)
       @total = 0.0
     end
 

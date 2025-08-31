@@ -7,6 +7,8 @@ require_relative "base"
 module App
   module Promos
     class GreenTeaOnMe < Base
+      MINIMUM_QUANTITY = 2.freeze
+
       def observe(action)
         code = action.item.product.code
 
@@ -22,8 +24,6 @@ module App
           GR1_quantity: 0
         }
       end
-
-      MINIMUM_QUANTITY = 2.freeze
 
       def calculate_discount
         quantity = @analysis[:GR1_quantity]

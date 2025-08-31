@@ -8,6 +8,9 @@ require_relative "base"
 module App
   module Promos
     class CooBerry < Base
+      MINIMUM_QUANTITY = 3.freeze
+      SR_PROMO_PRICE = 4.50.freeze
+
       def observe(action)
         code = action.item.product.code
 
@@ -23,9 +26,6 @@ module App
           SR1_quantity: 0
         }
       end
-
-      MINIMUM_QUANTITY = 3.freeze
-      SR_PROMO_PRICE = 4.50.freeze
 
       def calculate_discount
         quantity = @analysis[:SR1_quantity]

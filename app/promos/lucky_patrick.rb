@@ -9,6 +9,10 @@ require_relative "base"
 module App
   module Promos
     class LuckyPatrick < Base
+      OBSERVABLE_COLOUR = "green"
+      DISCOUNT_THRESHOLD = 1.70.freeze
+      MINIMUM_QUANTITY = 3.freeze
+
       def observe(action)
         colour = action.item.product.attributes[:colour]
 
@@ -31,10 +35,6 @@ module App
           prices: Set.new
         }
       end
-
-      OBSERVABLE_COLOUR = "green"
-      DISCOUNT_THRESHOLD = 1.70.freeze
-      MINIMUM_QUANTITY = 3.freeze
 
       def calculate_discount
         return 0.0 if @analysis[:quantity] < MINIMUM_QUANTITY

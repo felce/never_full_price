@@ -13,6 +13,9 @@ require_relative "base"
 module App
   module Promos
     class CmoLlection < Base
+      OBSERVABLE_PRODUCTS = [Product::PL_1_W, Product::PL_1_B, Product::PL_1_R, Product::PL_1_G].freeze
+      MINIMUM_QUANTITY = 3.freeze
+
       def observe(action)
         code = action.item.product.code
 
@@ -31,9 +34,6 @@ module App
           PL1_G_quantity: 0
         }
       end
-
-      OBSERVABLE_PRODUCTS = [Product::PL_1_W, Product::PL_1_B, Product::PL_1_R, Product::PL_1_G].freeze
-      MINIMUM_QUANTITY = 3.freeze
 
       def calculate_discount
         multiplier = @analysis.values.min
