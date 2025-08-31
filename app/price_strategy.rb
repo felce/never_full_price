@@ -9,6 +9,13 @@ module App
       @total = 0.0
     end
 
+    def initialize_copy(source)
+      super
+
+      @discounter = nil
+      @total = 0.0
+    end
+
     def update(action)
       @total += (action.added? ? 1 : -1) * action.item.product.price
 
