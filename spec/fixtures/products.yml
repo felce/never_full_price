@@ -1,0 +1,59 @@
+- code: GR1
+  name: Green Tea
+  price: 3.11
+- code: SR1
+  name: Strawberry
+  price: 5.00
+- code: CF1
+  name: Coffee
+  price: 11.23
+- code: PL1_W
+  name: White Plate
+  price: 6.00
+  attributes:
+    colour: white
+- code: PL1_B
+  name: Blue Plate
+  price: 6.00
+  attributes:
+    colour: blue
+- code: PL1_G
+  name: Green Plate
+  price: 6.00
+  attributes:
+    colour: green
+- code: PL1_R
+  name: Red Plate
+  price: 6.00
+  attributes:
+    colour: red
+- code: SB1_G
+  name: Green sketchbook
+  price: 7.00
+  attributes:
+    colour: green
+- code: SB1_R
+  name: Red sketchbook
+  price: 7.00
+  attributes:
+    colour: red
+- code: SB1_W
+  name: White sketchbook
+  price: 7.00
+  attributes:
+    colour: white
+- code: PN1_G
+  name: Pencil
+  price: 1.50
+  attributes:
+    colour: green
+- code: PN1_R
+  name: Pencil
+  price: 1.50
+  attributes:
+    colour: red
+- code: PN1_W
+  name: Pencil
+  price: 1.50
+  attributes:
+    colour: white

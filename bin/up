@@ -1,0 +1,67 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+Bundler.require(:default, :test)
+
+app_files = File.join(File.expand_path("..", __dir__), "app", "**", "*.rb")
+
+Dir.glob(app_files).sort.each do |file|
+  require file
+end
+
+$strategy = nil
+
+if ARGV.include?('with_catalogue')
+  puts "Populating catalogue with products..."
+  require "yaml"
+  YAML.load_file(File.join(File.expand_path("..", __dir__), "spec", "fixtures", "products.yml")).each do |product_data|
+    attributes = product_data.transform_keys(&:to_sym)
+
+    if attributes[:attributes]
+      attributes[:attributes] = attributes[:attributes].transform_keys(&:to_sym)
+    end
+
+    App::Catalogue.instance.add(App::Product.new(**attributes))
+  end
+  puts "Catalogue populated."
+end
+
+strategy_index = ARGV.index('with_strategy')
+if strategy_index
+  available_promos = {
+    'DiscountoChino' => App::Promos::DiscountoChino,
+    'GreenTeaOnMe' => App::Promos::GreenTeaOnMe,
+    'CooBerry' => App::Promos::CooBerry,
+    'CmoLlection' => App::Promos::CmoLlection
+  }
+
+  promo_names = ARGV.slice(strategy_index + 1..-1) || []
+  known_commands = ['with_catalogue']
+  promo_names = promo_names.take_while { |arg| !known_commands.include?(arg) }
+
+  promos = []
+  if promo_names.empty?
+    puts "Warning: 'with_strategy' was used without specifying any promos."
+  elsif promo_names.include?('all_promos')
+    promos = available_promos.values
+    puts "Creating strategy with all available promos..."
+  else
+    puts "Creating strategy with specified promos..."
+    promo_names.each do |name|
+      if available_promos.key?(name)
+        promos << available_promos[name]
+        puts "  -> Added #{name}"
+      else
+        puts "  -> Warning: Unknown promo '#{name}' was ignored."
+      end
+    end
+  end
+
+  unless promos.empty?
+    $strategy = App::PriceStrategy.new(promos: promos)
+    puts "Strategy created and is available as the '$strategy' variable."
+  end
+end
+
+Pry.start
+

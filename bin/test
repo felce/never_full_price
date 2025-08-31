@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "Installing gems..."
+bundle install
+
+echo "Running tests..."
+bundle exec rspec "$@"
