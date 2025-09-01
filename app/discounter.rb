@@ -11,7 +11,7 @@ module App
     end
 
     def discount
-      promos.map(&:discount).sum
+      promos.sum(&:discount)
     end
   end
 end
